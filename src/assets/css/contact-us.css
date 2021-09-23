@@ -1,0 +1,21 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+.bg-contact {
+    /* The image used */
+    background-image: url("../../static/image/contact-us.jpg");
+    /* Full height */
+    height: 500px; 
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.soial-contact {
+    font-size: 3rem;
+}
+.box-soial-contact {
+    padding-bottom: 10px;
+}

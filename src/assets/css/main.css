@@ -1,0 +1,242 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url('../../assets/font/Pattaya-Regular.ttf');
+}
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200&display=swap');
+
+body {
+    font-family: 'Kanit', sans-serif;
+}
+
+.navbarMenu {
+    padding-top: 1.5rem;
+    font-size: 1.2rem;
+    font-family: myFirstFont !important;
+    cursor: pointer;
+}
+.navbarLogo {
+    padding-top: 1rem;
+    cursor: pointer;
+}
+
+.nav-top-bar-icon {
+    font-size: 1.2rem;
+  }
+
+.card-product-detail {
+    margin-top: -10px;
+}
+.price-box {
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    margin-top: -5px;
+}
+.price {
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+.discount-product {
+    font-size: 1rem;
+    color: #5d5d5d;
+    margin-top: -10px !important;
+    text-decoration: line-through;
+}
+
+.discount {
+    font-size: 1rem;
+    text-decoration: line-through;
+}
+.btn-buy-box {
+    padding-top: 10px;
+}
+.sell {
+    padding: 1px;
+    background-color: #000000;
+    text-align: center;
+    width: 50px;
+    color: #ffffff;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+.img-product-card-home {
+    /* padding-right: 15px;
+    padding-left: 15px; */
+    position: relative;
+    text-align: center;
+}
+
+.line-product-title {
+    border-left : 5px solid #000;
+    padding-left: 10px;
+}
+
+.p-product-title {
+    margin-top: -7px;
+}
+.card-product {
+    cursor: pointer;
+}
+.card-product:hover {
+    cursor: pointer;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    padding: 8px 8px 0px 8px;
+    transform: scale(1.1);
+    background-color: #ffffff;
+}
+.card-product-main-detail {
+    margin-top: 7px;
+}
+.basket {
+    font-size: 1.5rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+.in-basket {
+    width: 20px;
+    height: 20px;
+    background-color: #ff0000;
+    border-radius: 50px;
+    text-align: center;
+    margin-top: -37px;
+    margin-left: 25px;
+    cursor: pointer;
+}
+.num-in-basket {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-top: -23px;
+    margin-left: 30px;
+}
+.nav-item-top {
+    padding: 0px 15px 0px 15px;
+    color: #ffffff;
+    font-size: 1rem;
+    margin-top: 4px;
+    cursor: pointer;
+}
+.nav-item-top :hover {
+    color: #000;
+}
+
+.footer {
+    width: 100%;
+    background-color: #000000;
+    padding: 50px 0px 0px 0px;
+}
+.footer-end {
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    background-color: #202020;
+}
+.footer-icon {
+    font-size: 2rem;
+    /* padding-top: 1rem; */
+}
+.footer-brand {
+    padding-bottom: 1rem;
+}
+.footer-brand-image {
+    width: 70px;
+}
+
+.other-btn {
+    margin-top: -10px;
+}
+
+
+/* Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+.line {
+    display:block; 
+    width:100%; 
+    border-bottom:1px solid #ced4da; 
+    /* margin-top:25px;  */
+    text-align:center
+}
+.line p {
+    /* font-size:15px;  */
+    text-align:center; 
+    position:relative; 
+    top:25px; 
+    padding:0 15px; 
+    display:inline-block; 
+    background:white
+}
+
+.line button {
+    position:relative; 
+    top:20px;  
+    display:inline-block;
+}
+
+.middle {
+    text-align: center; 
+    vertical-align: middle;
+}
+.pre-order-box-product {
+    padding: 1px;
+    background-color: #000000;
+    color: #fff;
+    width: 100px;
+    text-align: center;
+  }

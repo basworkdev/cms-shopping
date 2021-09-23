@@ -1,0 +1,24 @@
+{
+    "payStatus" : [
+        { "value": "NOT", "label": "ยังไม่ได้ชำระเงิน" },
+        { "value": "UPLOADSLIP", "label": "อัพโหลดหลักฐานการชำระเงิน" },
+        { "value": "PAY", "label": "ชำระเงินแล้ว" }
+    ] ,
+    "orderStatus" : [
+        { "value": "ORDER", "label": "สั่งซื้อ" },
+        { "value": "UPLOADSLIP", "label": "ส่งหลักฐานการชำระเงินแล้ว" },
+        { "value": "PAY", "label": "ชำระเงินแล้ว" },
+        { "value": "PACKED", "label": "สินค้าถูกบรรจุลงกล่องเรียบร้อย" },
+        { "value": "DELIVER", "label": "สินค้ากำลังถูกส่ง" },
+        { "value": "SUCCESS", "label": "สินค้าถูกจัดส่งเรียบร้อย" }
+    ],
+    "deliveryCompany" : [
+        { "value": "", "label": "-" , "trace": ""},
+        { "value": "Kerry-Express", "label": "Kerry Express" , "trace": "https://th.kerryexpress.com/en/home"},
+        { "value": "FedEx", "label": "FedEx" , "trace": "https://www.fedex.com/th-th/home.html"},
+        { "value": "DHL-Express", "label": "DHL Express" , "trace": "https://www.dhl.com/th-th/home.html"},
+        { "value": "Nim-Express", "label": "Nim Express" , "trace": "https://www.nimexpress.com/web/p/home"},
+        { "value": "J&T-Express", "label": "J&T-Express" , "trace": "https://www.jtexpress.co.th/index/query/gzquery.html"},
+        { "value": "Flash-Express", "label": "Flash Express" , "trace": "https://www.flashexpress.co.th/"}
+    ]
+}

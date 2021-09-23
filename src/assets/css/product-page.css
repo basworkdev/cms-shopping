@@ -1,0 +1,162 @@
+@media (max-width: 575.98px) {
+    .pro-product-page {
+      padding-top: 0px !important;
+    }
+    .pro-product-page {
+        padding-left: 0px !important;
+    }
+  }
+  @media (max-width: 767.98px) {
+    .pro-product-page {
+      padding-top: 0px !important;
+    }
+    .pro-product-page {
+        padding-left: 0px !important;
+    }
+  }
+  @media (max-width: 991.98px) {
+    .pro-product-page {
+      padding-top: 0px !important;
+    }
+    .pro-product-page {
+        padding-left: 0px !important;
+    }
+  }
+.pro-img-page {
+    padding: 50px 0px 50px 0px;
+}
+.pro-product-page {
+    padding: 50px 0px 50px 30px;
+
+}
+.pro-name-page {
+    font-size: 2rem;
+}
+.pro-color-page {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+.pro-color-page:hover {
+    border: 5px solid #5d5d5d;
+}
+.pro-color-page.active {
+    border: 5px solid #5d5d5d;
+}
+
+.pro-color-page-mini {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.pro-color-page-mini:hover {
+  border: 3px solid #5d5d5d;
+}
+.pro-color-page-mini.active {
+  border: 3px solid #5d5d5d;
+}
+
+.pro-color-box-page {
+    /* padding-top: 1rem; */
+}
+.pro-sum-img-page {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  cursor: pointer;
+}
+.pro-sum-img-page.active {
+  border: 2px solid #000000;
+  transform: scale(1.2);
+}
+.pro-sum-img-page:hover {
+  transform: scale(1.2);
+}
+.pro-price-page {
+  font-size: 3rem;
+  padding: 0px !important;
+  margin-top: 20px;
+}
+.pro-discount-page {
+  font-size: 1.5rem;
+  color: #5d5d5d;
+  margin-top: -20px !important;
+  text-decoration: line-through;
+}
+.pro-container-discount-persen-page {
+  position: relative;
+}
+.pro-discount-persen-page {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.pro-box-discount-persen-page {
+  /* width: 200px; */
+  padding: 5px 20px 5px 20px;
+  color: #ffffff;
+  background-color: #ff0000;
+  text-align: center;
+  /* font-size: 1.5rem; */
+}
+/* ///// input number ///// */
+.input-number {
+  width: 50px;
+  padding: 0 12px;
+  vertical-align: top;
+  text-align: center;
+  outline: none;
+}
+
+.input-number,
+.input-number-decrement,
+.input-number-increment {
+  border: 1px solid #ccc;
+  height: 35px;
+  user-select: none;
+}
+
+.input-number-decrement,
+.input-number-increment {
+  display: inline-block;
+  width: 30px;
+  line-height: 30px;
+  background: #5d5d5d;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.input-number-decrement {
+  border-right: none;
+  border-radius: 15px 0 0 15px;
+}
+
+.input-number-increment {
+  border-left: none;
+  border-radius: 0 15px 15px 0;
+}
+.out-of-stock {
+  width: 100%;
+  padding: 1rem;
+  background-color: #ccc;
+  text-align: center;
+  font-size: 1.5rem;
+} 
+
+.pre-order-box {
+  padding: 5px;
+  background-color: #ff0000;
+  color: #fff;
+  width: 150px;
+  text-align: center;
+}
+.pre-order-button {
+  padding: 10px;
+  background-color: #000000;
+  color: #fff;
+  text-align: center;
+  font-size: 1.5rem;
+}

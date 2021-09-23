@@ -1,0 +1,330 @@
+@media (max-width: 600px) {
+  .desktop {
+    display: none;
+  }
+}
+@media (min-width: 600px) {
+  .mobile {
+    display: none;
+  }
+}
+/* @media (min-width: 991.98px) {
+  .mobile {
+    display: none;
+  }
+} */
+
+.md-stepper-horizontal {
+	display:table;
+	width:100%;
+	margin:0 auto;
+	background-color:#FFFFFF;
+	/* box-shadow: 0 3px 8px -6px rgba(0,0,0,.50); */
+}
+.md-stepper-horizontal .md-step {
+	display:table-cell;
+	position:relative;
+	padding:24px;
+}
+.md-stepper-horizontal .md-step:hover,
+.md-stepper-horizontal .md-step:active {
+	background-color:rgba(0,0,0,0.04);
+}
+.md-stepper-horizontal .md-step:active {
+	border-radius: 15% / 75%;
+}
+.md-stepper-horizontal .md-step:first-child:active {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.md-stepper-horizontal .md-step:last-child:active {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.md-stepper-horizontal .md-step:hover .md-step-circle {
+	background-color:#757575;
+}
+.md-stepper-horizontal .md-step:first-child .md-step-bar-left,
+.md-stepper-horizontal .md-step:last-child .md-step-bar-right {
+	display:none;
+}
+.md-stepper-horizontal .md-step .md-step-circle {
+	width:50px;
+	height:50px;
+	margin:0 auto;
+	background-color:#999999;
+	border-radius: 50%;
+	text-align: center;
+	line-height:50px;
+	font-size: 24px;
+	font-weight: 600;
+	color:#FFFFFF;
+}
+.md-stepper-horizontal.green .md-step.active .md-step-circle {
+	background-color:#00AE4D;
+}
+.md-stepper-horizontal.orange .md-step.active .md-step-circle {
+	background-color:#ff0000;
+}
+.md-stepper-horizontal .md-step.active .md-step-circle {
+	background-color: rgb(33,150,243);
+}
+.md-stepper-horizontal .md-step.done .md-step-circle:before {
+	font-family: "Font Awesome 5 Free";
+  font-weight: 900; 
+  content: "\f555";
+}
+
+.md-stepper-horizontal .md-step.done .md-step-circle *,
+.md-stepper-horizontal .md-step.editable .md-step-circle * {
+	display:none;
+}
+.md-stepper-horizontal .md-step.editable .md-step-circle {
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
+}
+.md-stepper-horizontal .md-step.editable .md-step-circle:before {
+	font-family: "Font Awesome 5 Free";
+	font-weight:900;
+	content: "\f466";
+}
+
+.md-stepper-horizontal .md-step.send .md-step-circle:before {
+	font-family: "Font Awesome 5 Free";
+  font-weight: 900; 
+  content: "\f0d1";
+}
+
+.md-stepper-horizontal .md-step.success .md-step-circle:before {
+	font-family: "Font Awesome 5 Free";
+  font-weight: 900; 
+  content: "\f00c";
+}
+
+.md-stepper-horizontal .md-step .md-step-title {
+	margin-top:16px;
+	font-weight:600;
+}
+.md-stepper-horizontal .md-step .md-step-title,
+.md-stepper-horizontal .md-step .md-step-optional {
+	text-align: center;
+	color:rgba(0,0,0,.26);
+}
+.md-stepper-horizontal .md-step.active .md-step-title {
+	font-weight: 600;
+	color:rgba(0,0,0,.87);
+}
+.md-stepper-horizontal .md-step.active.done .md-step-title,
+.md-stepper-horizontal .md-step.active.editable .md-step-title {
+	font-weight:600;
+}
+.md-stepper-horizontal .md-step .md-step-optional {
+	font-size:16px;
+}
+.md-stepper-horizontal .md-step.active .md-step-optional {
+	color:rgba(0,0,0,.54);
+}
+.md-stepper-horizontal .md-step .md-step-bar-left,
+.md-stepper-horizontal .md-step .md-step-bar-right {
+	position:absolute;
+	top:50px;
+	height:1px;
+	border-top:2px solid #DDDDDD;
+}
+.md-stepper-horizontal .md-step .md-step-bar-right {
+	right:0;
+	left:50%;
+	margin-left:40px;
+}
+.md-stepper-horizontal .md-step .md-step-bar-left {
+	left:0;
+	right:50%;
+	margin-right:40px;
+}
+
+
+
+
+
+/* mobile */
+.wrapper {
+  width: 100%;
+  /* border: 1px solid #CCC; */
+}
+
+.StepProgress {
+  position: relative;
+  padding-left: 45px;
+  /* margin-top: 20px; */
+  list-style: none;
+}
+.StepProgress::before {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15px;
+  width: 10px;
+  height: 100%;
+  border-left: 2px solid #CCC;
+}
+.StepProgress-item {
+  position: relative;
+  counter-increment: list;
+  padding-left: 30px;
+  padding-top: 15px;
+}
+.StepProgress-item:not(:last-child) {
+  padding-bottom: 60px;
+}
+.StepProgress-item::before {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  left: -30px;
+  height: 100%;
+  width: 10px;
+}
+.StepProgress-item::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: -53px;
+  width: 50px;
+  height: 50px;
+  /* border: 2px solid #CCC; */
+  border-radius: 50%;
+  background-color: #FFF;
+}
+
+.StepProgress-item.is-done::after {
+  font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f007";
+  font-size: 25px;
+  color: #FFF;
+  text-align: center;
+  /* border: 2px solid #ff0000; */
+  background-color: #999999;
+}
+
+.StepProgress-item.is-done.active {
+  background-color: #ff0000;
+}
+
+.StepProgress-item.is-pay::after {
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f555";
+  font-size: 25px;
+  color: #FFF;
+  text-align: center;
+  background-color: #999999;
+  padding-top: 6px;
+}
+
+.StepProgress-item.is-pay.active::after {
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f555";
+  font-size: 25px;
+  color: #FFF;
+  text-align: center;
+  background-color: #ff0000;
+  padding-top: 6px;
+
+}
+
+.StepProgress-item.is-box::after {
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f466";
+  font-size: 25px;
+  color: #FFF;
+  text-align: center;
+  background-color: #999999;
+  padding-top: 6px;
+
+}
+
+.StepProgress-item.is-box.active::after {
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f466";
+  font-size: 25px;
+  color: #FFF;
+  text-align: center;
+  background-color: #ff0000;
+  padding-top: 6px;
+
+}
+
+.StepProgress-item.is-send::after {
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f0d1";
+  font-size: 25px;
+  color: #FFF;
+  text-align: center;
+  background-color: #999999;
+  padding-top: 6px;
+
+}
+
+.StepProgress-item.is-send.active::after {
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f0d1";
+  font-size: 25px;
+  color: #FFF;
+  text-align: center;
+  background-color: #ff0000;
+  padding-top: 6px;
+
+}
+
+.StepProgress-item.is-success::after {
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f00c";
+  font-size: 25px;
+  color: #FFF;
+  text-align: center;
+  background-color: #999999;
+  padding-top: 6px;
+
+}
+
+.StepProgress-item.is-success.active::after {
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f00c";
+  font-size: 25px;
+  color: #FFF;
+  text-align: center;
+  background-color: #ff0000;
+  padding-top: 6px;
+
+}
+
+
+.StepProgress-item.current::before {
+  border-left: 2px solid #ff0000;
+}
+.StepProgress-item.current::after {
+  content: counter(list);
+  padding-top: 1px;
+  width: 19px;
+  height: 18px;
+  top: -4px;
+  left: -40px;
+  font-size: 14px;
+  text-align: center;
+  color: #ff0000;
+  border: 2px solid #ff0000;
+  background-color: white;
+}
+.StepProgress strong {
+  display: block;
+}

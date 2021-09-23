@@ -1,0 +1,30 @@
+.td-bank {
+    padding-left: 15px;
+}
+.table-bank {
+    margin-bottom: 10px;
+}
+.box-payment {
+    /* padding : 50px; */
+    border-radius: 1rem;
+    border: 1px solid #ced4da;
+    height: 150px;
+}
+
+.container-file {
+    position: relative;
+    text-align: center;
+  }
+  .centered-file {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+  .file-upload {
+      width: 100%;
+      height: 150px;
+      z-index: 99;
+      opacity: 0;
+  }
