@@ -19,6 +19,21 @@ const doserviceUploadImage = (formData) => {
     });
 }
 
+const doserviceUploadImageBase64 = (data) => {
+    return new Promise((resolve, reject) => {
+        axios.post(`${process.env.REACT_APP_ENGINE_URL}uploadImage`, data , {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        })
+        .then(res => {
+            resolve(res.data);
+        }).catch(reason => {
+            reject(reason);
+        })
+    });
+}
+
 const doserviceUploadImageSlipPay = (formData) => {
     let data = {
         formData : formData,
@@ -73,6 +88,62 @@ const getPostCode = (districts_id) => {
     return postCode.zip_code
 }
 
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
+const UploadImageBase64 = async (e , callback) => {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = async function () {
+            let image = {};
+            let data = file
+            let fileName = "";
+            debugger
+            if(data.size > 500000) {
+                alert(`Over 500 KB size "${data.name}"`);
+                
+            } else {
+                const typeFileList = ["PNG","JPG","JPEG"];
+                const typeFile = (file.name.split('.')[1]).toUpperCase();
+                if( typeFileList.includes(typeFile)) {
+                    let dataBase64 = await toBase64(data);
+                    var dateObj = new Date();
+                    let month = (("0" + (dateObj.getMonth() + 1)).slice(-2)).toString()
+                    let day = (("0" + dateObj.getDate()).slice(-2)).toString()
+                    let year = (dateObj.getFullYear()).toString();
+                    let hours = (("0" + dateObj.getHours()).slice(-2)).toString();
+                    let minutes = (("0" + dateObj.getMinutes()).slice(-2)).toString();
+                    let milliseconds = (dateObj.getMilliseconds()).toString();
+                    
+                    fileName = year + month + day + hours + minutes + milliseconds + data.name ;
+                    image = {
+                        name : `${fileName}`,
+                        size : data.size,
+                        data : dataBase64.split(',')[1]
+                    }
+                } else {
+                    alert(`The file type is invalid.`);
+                }
+            }
+            callback(image)
+            
+        };
+        reader.readAsDataURL(file);
+}
+
+const x = async (e) => {
+    let x = await UploadImageBase64(e,(image) => {
+    console.log(image)
+    return image
+    });
+    return x
+    // return x
+    
+}
 
 const apis = {
     doserviceUploadImage,
@@ -81,7 +152,10 @@ const apis = {
     getProvinces,
     getAmphure,
     getDistricts,
-    getPostCode
+    getPostCode,
+    UploadImageBase64,
+    x,
+    doserviceUploadImageBase64
 }
 
 export default apis;

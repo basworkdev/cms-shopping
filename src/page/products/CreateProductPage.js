@@ -7,7 +7,10 @@ import tc from '../../config/text.json'
 
 // Comp
 import UploadImageComp from '../../component/UploadImageComp'
-import TinyEditerComp from '../../component/TinyEditerComp'
+import TinyEditerComp from '../../component/TinyEditerComp';
+
+// Apis
+import MainApi from '../../apis/MainApi'
 
 export default function CreateProductPage(props) {
   let { event,id } = useParams();
@@ -28,8 +31,15 @@ export default function CreateProductPage(props) {
   const [salesType , setSalesType] = useState([
         { value: 'CASH', label: 'Cash' },
         { value: 'PREORDER', label: 'Pre-order' }
-    ])
-//   const [mainImgState , setMainImgState] = useState([]);
+  ])
+  const [imageState , setImageState] = useState({
+      mainImageData : {data : ""},
+      mainImageUrl : ""
+  });
+  const [imageListState , setImageListState] = useState({
+    mainImageData : [],
+    mainImageUrl : []
+});
 
   const tcv = tc.validate.requestFiles;
   let _ = require('lodash');
@@ -127,12 +137,58 @@ export default function CreateProductPage(props) {
     setProductState({...productState,status : st})
   }
 
+
+  let image = {
+    mainImageData : {},
+    mainImageUrl : ""
+  }
+  const imageBase64 = async (e) => {
+    let url = URL.createObjectURL(e.target.files[0])
+    const x = await MainApi.UploadImageBase64(e , (image) => {
+        setImageState(
+            {
+                ...imageState,
+                mainImageData : image,
+                mainImageUrl : url
+            }
+        )
+        return image
+    });
+  }
+
+  const imageListBase64 = async (e) => {
+    let url = URL.createObjectURL(e.target.files[0])
+    const x = await MainApi.UploadImageBase64(e , (image) => {
+        let imageUpload = {
+            mainImageData : imageListBase64.mainImageData,
+            mainImageUrl : imageListBase64.mainImageUrl
+        }
+        setImageListState(
+            {
+                ...imageListState,
+                mainImageData : image,
+                mainImageUrl : url
+            }
+        )
+        return image
+    });
+  }
+
+  
+
   const onSubmit = async (data) => {
     data.status = data.status === true ? data.status = "Y" : data.status = "N";
     data.mainImg = productState.mainImg;
     console.log(data);
     let create;
     if(event === "create") {
+        let mainImageUrl = await MainApi.doserviceUploadImageBase64({
+            "folderName" : "./images/product/",
+            "fileName" : imageState.mainImageData.name,
+            "base64image" : `data:image/jpeg;base64,${imageState.mainImageData.data}`
+        })
+        // data.img = `images/product/${imageState.mainImageData.name}`;
+        data.mainImg = `images/product/${imageState.mainImageData.name}`;
         create = await ProductsApi.doserviceCreateProduct(data);
     } else if(event === "edit") {
         data.id = id
@@ -306,14 +362,19 @@ export default function CreateProductPage(props) {
                             {errors.color && <span className="text-danger">{tcv}</span>}
                         </div>
                         <div className="form-group">
+                            {imageState.mainImageData ? imageState.mainImageData.data : "xx"}
                             <label>อัพโหลดรูปภาพหลัก</label>
-                            <div style={{width : "50%"}}>
+                            {/* <div style={{width : "50%"}}>
                                 {productState.mainImg ? <img src={`${process.env.REACT_APP_ENGINE_URL}images/${productState.mainImg}`} width="100%"/> : ""}
+                            </div> */}
+                            <div style={{width : "50%"}}>
+                                {imageState.mainImageUrl ? <img src={imageState.mainImageUrl} width="100%"/> : ""}
                             </div>
                             <br/>
-                            <UploadImageComp onClickUpload={(e)=>clickUploadMainImg(e)} />
+                            <input type="file" onChange={(e)=>imageBase64(e)}/>
+                            {/* <UploadImageComp onClickUpload={(e)=>clickUploadMainImg(e)} /> */}
                             <br/>
-                            <input type="hidden" name="img" value={productState.mainImg} ref={register({ required: true })}/>
+                            <input type="hidden" name="img" value={imageState.mainImageUrl} ref={register({ required: true })}/>
                             {errors.img && <span className="text-danger">{tcv}</span>}
                         </div>
                         <div className="form-group">
@@ -376,6 +437,7 @@ export default function CreateProductPage(props) {
                 <br/>
                 <center><button className="btn btn-primary" type="submit">บันทึก</button></center>
               </form>
+              <button onClick={()=>test()}>ok</button>
           </div>
       </>
   )
