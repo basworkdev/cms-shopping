@@ -9,6 +9,7 @@ import {storage} from "../../firebase"
 // Comp
 import UploadImageComp from '../../component/UploadImageComp'
 import TinyEditerComp from '../../component/TinyEditerComp';
+import SpinnerComp from "../../component/SpinnerComp"
 
 // Apis
 import MainApi from '../../apis/MainApi'
@@ -18,6 +19,7 @@ export default function CreateProductPage(props) {
   let _ = require('lodash');
   let moment = require('moment');
   const { register, handleSubmit, watch, errors } = useForm();
+  const [spinnerState,setSpinnerState] = useState(false);
   const [dataBrandState , setDataBrandState] = useState([]);
   const [dataProductTypeState , setDataProductTypeState] = useState([]);
   const [dataColorState , setDataColorState] = useState([]);
@@ -54,7 +56,15 @@ export default function CreateProductPage(props) {
         setSelectTypeState({ value: pd.typeId, label: pd.typeName })
         setTypeState(pd.typeId)
         selectSetBrandState({ value: pd.brandId, label: pd.brandName_th })
-        setImagesUploadState( pd.img ? pd.img.split(",") : [])
+        setShowImageState({
+            main : pd.mainImg ? pd.mainImg : "",
+            image : pd.img ? pd.img.split(",") : []
+        })
+        setFileImageState({
+            main : pd.mainImg ? pd.mainImg : "",
+            image : pd.img ? pd.img.split(",") : []
+        })
+        // setImagesUploadState( pd.img ? pd.img.split(",") : [])
         setSelectColorState(pd.color.split(","))
         // setOldMainImageState(pd.mainImg);
         let salesTypeData = _.find(salesType , {value : pd.salesType})
@@ -106,13 +116,26 @@ export default function CreateProductPage(props) {
     setImagesUploadState([...imagesUploadState , e.filename]);
   }
 
-  const removeUpload = (data) => {
-    let image = imagesUploadState;
-    let evens = _.remove(image, function(n) {
-        return n !== data;
+  const removeUpload = (index) => {
+    let showImage = showImageState.image;
+    let fileImage = fileImageState.image
+    
+    // let evensShowImage = _.remove(showImage, function(n) {
+    //     return n !== data;
+    // });
+    // let evensFileImage = _.remove(fileImage, function(n) {
+    //     return n !== data;
+    // });
+    showImage.splice(index, 1);
+    fileImage.splice(index, 1);
+    setShowImageState({
+        ...showImageState,
+        image : showImage
     });
-    ProductsApi.doserviceDeleteImage(data);
-    setImagesUploadState([...evens]);
+    setFileImageState({
+        ...fileImageState,
+        image : fileImage
+    })
   }
 
   const selectType = (e) => {
@@ -215,28 +238,14 @@ const saveImage = (data) => {
     //history.push(`/order-status/${orderId}`)
 }
 
-  const submitImage = async (dataFile) => {
-    let data = {}
-    let filePage = "product/testxxx/"
-    let ref = "product/testxxx"
-    let imageName = `productKey-productName`;
-    let pageUrl = filePage+imageName
-    let file = dataFile
-    data = {
-        filePage,
-        ref,
-        imageName,
-        pageUrl,
-        file
-    }
-    console.log(await saveImage(data))
-
-    for(let i=0;i<fileImageState.image.length;i++){
-        let filePage = `product/test${i}/`
-        let ref = `product/test${i}`
-        let imageName = `productKey-productName${i}`
+  const saveMainImage = async (data) => {
+      
+    if(data.file.name) {
+        let filePage = `product/${data.key}/`
+        let ref = `product/${data.key}`
+        let imageName = `main-${data.key}`;
         let pageUrl = filePage+imageName
-        let file = fileImageState.image[i]
+        let file = data.file
         data = {
             filePage,
             ref,
@@ -244,31 +253,73 @@ const saveImage = (data) => {
             pageUrl,
             file
         }
-        console.log(await saveImage(data)) 
+        return await saveImage(data)
+    } else {
+        return data.file
     }
+    
+  }
+
+  const saveImages = async (data) => {
+    let image = []
+    for(let i=0;i<data.file.length;i++){
+        if(data.file[i].name) {
+            let filePage = `product/${data.key}/`
+            let ref = `product/${data.key}`
+            let imageName = `${data.key}-${i}`
+            let pageUrl = filePage+imageName
+            let file = data.file[i]
+            let dataImg = {
+                filePage,
+                ref,
+                imageName,
+                pageUrl,
+                file
+            }
+            let saveImageData = await saveImage(dataImg)
+            image.push(saveImageData)
+        } else {
+            image.push(data.file[i])
+        }
+    }
+    image = image.toString();
+    return image;
   }
 
   const onSubmit = async (data) => {
-    data.status = data.status === true ? data.status = "Y" : data.status = "N";
-    data.mainImg = productState.mainImg;
-    console.log(data);
-    let create;
-    if(event === "create") {
-        saveImage(fileImageState.main)
-        return
-        create = await ProductsApi.doserviceCreateProduct(data);
-    } else if(event === "edit") {
-        data.id = id
-        create = await ProductsApi.doserviceUpdateProduct(data);
-    }
-    
-    if(create.code === 1) {
-        // if(event === "edit" && uploadMainImageState === true) {
-        //     ProductsApi.doserviceDeleteImage(oldMainImageState);
-        // }
-        alert(create.message);
-    } else {
-        alert(tcv.error);
+    setSpinnerState(true)
+    try {
+        data.status = data.status === true ? data.status = "Y" : data.status = "N";
+        console.log(data);
+        let create;
+        let mainImage = {
+            file : fileImageState.main,
+            key : data.productKey
+        }
+        let image = {
+            file : fileImageState.image,
+            key : data.productKey
+        }
+        data.mainImg = await saveMainImage(mainImage)
+        data.img = await saveImages(image)
+        if(event === "create") {
+            create = await ProductsApi.doserviceCreateProduct(data);
+        } else if(event === "edit") {
+            data.id = id
+            create = await ProductsApi.doserviceUpdateProduct(data);
+        }
+        setSpinnerState(false)
+        if(create.code === 1) {
+            // if(event === "edit" && uploadMainImageState === true) {
+            //     ProductsApi.doserviceDeleteImage(oldMainImageState);
+            // }
+            alert(create.message);
+        } else {
+            alert(tcv.error);
+        }
+    } catch (error) {
+        setSpinnerState(false)
+        alert(tc.SYSTEMERROR)
     }
     
   }
@@ -279,6 +330,7 @@ const saveImage = (data) => {
 
   return(
       <>
+      <SpinnerComp spinner={spinnerState}/>
           <div className="container admin-page">
               <h2>{event === "create" ? "เพิ่ม" : "แก้ไข"}สินค้า</h2>
               <br/>
@@ -453,7 +505,7 @@ const saveImage = (data) => {
                                         return <div 
                                             className="col-3" 
                                             style={{marginRight : "10px", cursor : "pointer" , paddingBottom : 10}}
-                                            // onClick={()=>removeUpload(data)}
+                                            onClick={()=>removeUpload(index)}
                                         >
                                             <img src={data} width="100%"/>
                                         </div>
@@ -514,7 +566,7 @@ const saveImage = (data) => {
                 <br/>
                 <center><button className="btn btn-primary" type="submit">บันทึก</button></center>
               </form>
-              <button onClick={()=>submitImage(fileImageState.main)}>ok</button>
+              {/* <button onClick={()=>submitImage(fileImageState.main)}>ok</button> */}
           </div>
       </>
   )

@@ -14,7 +14,7 @@ import './assets/bootstrap-4.5.3/css/bootstrap-reboot.css'
 import './assets/bootstrap-4.5.3/css/bootstrap.css'
 import './assets/css/main.css'
 import './assets/css/main-admin.css'
-// import './assets/fontawesome-free-5.15.1-web/css/all.css';
+import './assets/fontawesome-free-5.15.1-web/css/all.css';
 import './assets/css/spinner.css'
 
 // JS

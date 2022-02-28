@@ -102,7 +102,7 @@ const UploadImageBase64 = async (e , callback) => {
             let image = {};
             let data = file
             let fileName = "";
-            debugger
+            
             if(data.size > 500000) {
                 alert(`Over 500 KB size "${data.name}"`);
                 
