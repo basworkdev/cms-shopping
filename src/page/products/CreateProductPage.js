@@ -35,6 +35,8 @@ export default function CreateProductPage(props) {
         { value: 'CASH', label: 'Cash' },
         { value: 'PREORDER', label: 'Pre-order' }
   ])
+  const [selectCarModelState , setSelectCarModelState] = useState({data : []})
+  const [dataCarModelState , setDataCarModelState] = useState([])
   const [showImageState , setShowImageState] = useState({  
       main : null,
       image : []
@@ -56,10 +58,20 @@ export default function CreateProductPage(props) {
         setSelectTypeState({ value: pd.typeId, label: pd.typeName })
         setTypeState(pd.typeId)
         selectSetBrandState({ value: pd.brandId, label: pd.brandName_th })
+        let carModelIdList = pd.carModelId.split(",")
+        let carModelList = pd.carModel.split(",")
+        let carModel = carModelIdList.map((data,index)=>{
+            return {value : data , label : carModelList[index]}
+        })
+        setSelectCarModelState({
+            ...selectCarModel,
+            data : carModel
+        })
         setShowImageState({
             main : pd.mainImg ? pd.mainImg : "",
             image : pd.img ? pd.img.split(",") : []
         })
+
         setFileImageState({
             main : pd.mainImg ? pd.mainImg : "",
             image : pd.img ? pd.img.split(",") : []
@@ -74,9 +86,17 @@ export default function CreateProductPage(props) {
     getBrand();
     getProductType();
     getProductColor();
+    getCarModel()
   }, []);
  
-  
+  const getCarModel = async () => {
+    let carModelList = await MainApi.doserviceGetCarModel();
+    console.log(carModelList)
+    let carModel = carModelList.map((data,index)=>{
+        return { value: data.id, label: `${data.brand} : ${data.model} (${data.model_year})` };
+    })
+    setDataCarModelState(carModel);
+  }
   const getBrand = async () => {
     let brandList = await ProductsApi.doserviceGetBrand();
     let brand = brandList.map((data,index)=>{
@@ -146,6 +166,13 @@ export default function CreateProductPage(props) {
   const selectBrand = (e) => {
     selectSetBrandState({ value: e.value, label: e.label })
     setBrandState(e.value)
+  }
+
+  const selectCarModel = (e) => {
+    setSelectCarModelState({
+        ...selectCarModelState,
+        data : e
+    })
   }
 
   const statusClick = () => {
@@ -302,6 +329,14 @@ const saveImage = (data) => {
         }
         data.mainImg = await saveMainImage(mainImage)
         data.img = await saveImages(image)
+        let carModelId = selectCarModelState.data.map((data)=>{
+            return data.value
+        })
+        let carModel = selectCarModelState.data.map((data)=>{
+            return data.label
+        })
+        data.carModelId = carModelId.toString();
+        data.carModel = carModel.toString();
         if(event === "create") {
             create = await ProductsApi.doserviceCreateProduct(data);
         } else if(event === "edit") {
@@ -447,6 +482,17 @@ const saveImage = (data) => {
                                 options={dataProductTypeState} 
                                 value={selectTypeState}
                                 onChange={(e)=>selectType(e)}
+                            />
+                            <input type="hidden" className="form-control" name="type" value={typeState.toString()} ref={register({ required: false })}/>
+                            {errors.type && <span className="text-danger">{tcv}</span>}
+                        </div>
+                        <div className="form-group">
+                            <label>รุ่นรถ</label>
+                            <Select 
+                                options={dataCarModelState} 
+                                value={selectCarModelState.data}
+                                isMulti
+                                onChange={(e)=>selectCarModel(e)}
                             />
                             <input type="hidden" className="form-control" name="type" value={typeState.toString()} ref={register({ required: false })}/>
                             {errors.type && <span className="text-danger">{tcv}</span>}

@@ -54,6 +54,21 @@ const doserviceUploadImageSlipPay = (formData) => {
     });
 }
 
+const doserviceGetCarModel = () => {
+    return new Promise((resolve, reject) => {
+        axios.get(`${process.env.REACT_APP_ENGINE_URL}getCarModel`, {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        })
+        .then(res => {
+            resolve(res.data);
+        }).catch(reason => {
+            reject(reason);
+        })
+    });
+}
+
 const percentSell = (fullPrice , price) => {
     const discount = fullPrice - price;
     const percent = (discount/fullPrice) * 100;
@@ -155,7 +170,8 @@ const apis = {
     getPostCode,
     UploadImageBase64,
     x,
-    doserviceUploadImageBase64
+    doserviceUploadImageBase64,
+    doserviceGetCarModel
 }
 
 export default apis;
