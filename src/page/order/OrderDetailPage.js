@@ -107,6 +107,12 @@ export default function OrderDetailPage(props) {
         sortable: true,
     },
     {
+        name: 'รุ่นรถ',
+        selector: 'carModel',
+        sortable: true,
+        width : "200px"
+    },
+    {
         name: 'สี',
         selector: 'color',
         sortable: true,
@@ -376,7 +382,7 @@ export default function OrderDetailPage(props) {
                         <br/>
                     </div>
                 </div>
-                <p>รายสารสินค้าที่สั่งซื้อ <span className="font-weight-bold">{setNumber(orderState.amount)}</span> ชิ้น</p>
+                <p>รายการสินค้าที่สั่งซื้อ <span className="font-weight-bold">{setNumber(orderState.amount)}</span> ชิ้น</p>
                 <div>
                 <DataTable
                     noHeader
