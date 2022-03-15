@@ -191,6 +191,12 @@ export default function OrderDetailPage(props) {
         }
     }
 
+    const sendEmail = async () => {
+        console.log("orderState" , orderState)
+        let resp = await OrderApi.doserviceSendMailOrder(orderState)
+        console.log(resp)
+    }
+
     const onSubmit = async (data) => {
         data.orderId = orderId;
         if(!data.pay_date) {
@@ -395,6 +401,7 @@ export default function OrderDetailPage(props) {
                 />
                 </div>
                 
+                <button type="button" class="btn btn-primary" onClick={()=>sendEmail()}>ส่ง email สถานะสินค้า</button>
                 <hr/>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {payDetailForm()}
