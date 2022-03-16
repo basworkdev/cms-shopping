@@ -192,9 +192,18 @@ export default function OrderDetailPage(props) {
     }
 
     const sendEmail = async () => {
-        console.log("orderState" , orderState)
-        let resp = await OrderApi.doserviceSendMailOrder(orderState)
-        console.log(resp)
+        try {
+            setSpinnerState(true)
+            console.log("orderState" , orderState)
+            let resp = await OrderApi.doserviceSendMailOrder(orderState)
+            console.log("sendEmail" , resp)
+            bootbox.alert(resp);
+            setSpinnerState(false)
+        } catch (error) {
+            setSpinnerState(false)
+            alert(error)
+        }
+        
     }
 
     const onSubmit = async (data) => {
