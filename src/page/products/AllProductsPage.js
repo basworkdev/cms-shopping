@@ -76,19 +76,29 @@ export default function AllProductsPage(props) {
     
   const columns = [
     {
+      width : "80px",
+      cell: (data) => <>
+        <font style={{fontSize : "1.2rem" , cursor : "pointer"}} className="text-warning" onClick={()=>editProduct(data.id)}><i className="fas fa-edit"></i></font> &nbsp;&nbsp;&nbsp;
+        <font style={{fontSize : "1.2rem" , cursor : "pointer"}} className="text-danger" onClick={()=>deleteProduct(data.id,(data.img+","+data.mainImg))}><i className="fas fa-minus-circle"></i></font>
+      </>
+    },
+    {
       name: 'รหัส',
       selector: 'id',
       sortable: true,
+      width : "80px"
     },
     {
       name: 'คีย์',
       selector: 'productKey',
       sortable: true,
+      width : "250px"
     },
     {
       name: 'ชื่อ',
       selector: 'name',
       sortable: true,
+      width : "250px"
     },
     {
       name: 'ประเภท',
@@ -114,12 +124,6 @@ export default function AllProductsPage(props) {
         name: 'สต็อก',
         selector: 'stock',
         sortable: true,
-    },
-    {
-      cell: (data) => <>
-        <font style={{fontSize : "1.2rem" , cursor : "pointer"}} className="text-warning" onClick={()=>editProduct(data.id)}><i className="fas fa-edit"></i></font> &nbsp;&nbsp;&nbsp;
-        <font style={{fontSize : "1.2rem" , cursor : "pointer"}} className="text-danger" onClick={()=>deleteProduct(data.id,(data.img+","+data.mainImg))}><i className="fas fa-minus-circle"></i></font>
-      </>
     }
   ];
   
